@@ -1,8 +1,8 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
 
-async function getRawHTML() {
-  const { data } = await axios.get("http://localhost/ggd/index.html");
+async function getRawHTML(url = "http://localhost/ggd/index.html") {
+  const { data } = await axios.get(url);
   return data;
 }
 

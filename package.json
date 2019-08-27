@@ -1,0 +1,27 @@
+{
+  "name": "graph-graph-dash-backend",
+  "version": "1.0.0",
+  "description": "Backend for my graph-graph-dash API",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Casey6624/graph-graph-dash-backend.git"
+  },
+  "author": "Casey Richard Smith",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Casey6624/graph-graph-dash-backend/issues"
+  },
+  "homepage": "https://github.com/Casey6624/graph-graph-dash-backend#readme",
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "cheerio": "^1.0.0-rc.3",
+    "express": "^4.17.1"
+  }
+}

@@ -1,10 +1,18 @@
-const axios = require("axios")
+const axios = require("axios");
+const cheerio = require("cheerio");
 
 async function getRawHTML() {
-    const res = await axios.get("http://localhost/ggd/index.html")
-    console.log(res.data)
+  const { data } = await axios.get("http://localhost/ggd/index.html");
+  return data;
+}
+
+async function crawlWebpage(fullHTML) {
+  const $ = cheerio.load(fullHTML);
+
+  console.log($);
 }
 
 module.exports = {
-    getRawHTML: getRawHTML()
-}
+  getRawHTML: getRawHTML,
+  crawlWebpage: crawlWebpage
+};

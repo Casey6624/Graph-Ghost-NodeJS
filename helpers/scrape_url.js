@@ -14,7 +14,7 @@ async function crawlWebpage(fullHTML) {
 
 function formatTableData($) {
   const trimmedItems = [];
-  const foundItems = $("td").each(function(i, el) {
+  return $("td").each(function(i, el) {
     trimmedItems.push($(this).text());
   });
 }

@@ -21,7 +21,7 @@ app.post("/crawlme", (req, res, next) => {
   const data = startApp(url, elements)
     .then(data => {
       console.log(data);
-      return data;
+      return res.send(data);
     })
     .catch(err => console.log(err));
   console.log(data);

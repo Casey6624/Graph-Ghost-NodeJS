@@ -9,7 +9,7 @@ async function getRawHTML(url = "http://localhost/ggd/index.html") {
 async function crawlWebpage(fullHTML) {
   const $ = cheerio.load(fullHTML);
 
-  formatTableData($);
+  return formatTableData($);
 }
 
 function formatTableData($) {

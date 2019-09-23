@@ -7,7 +7,7 @@ const app = express();
 const { getRawHTML, crawlWebpage } = require("./helpers/scrape_url");
 
 async function startApp(url, elements) {
-  console.log(chalk.magenta("Getting HTML"));
+  console.log(chalk.magenta.bgRed.bold("Getting HTML"));
   return crawlWebpage(getRawHTML(url));
 }
 
@@ -28,3 +28,5 @@ app.post("/crawlme", (req, res, next) => {
 });
 
 app.listen(PORT);
+
+console.log(chalk.magenta(`Server Listening On PORT: ${PORT}`));

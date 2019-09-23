@@ -7,12 +7,22 @@ type User {
     email: String!
 }
 
+type Code {
+    _id: ID!
+    generatedCode: String!
+}
+
 input UserInput {
     email: String!
 }
 
+input CodeInput {
+    generatedCode: String!
+}
+
 type RootQuery{
     users: [User!]
+    findCode(email: String!, retrievalCode: String!): [Code!]
 }
 
 type RootMutation{

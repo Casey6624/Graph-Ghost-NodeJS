@@ -65,6 +65,7 @@ mongoose
   .then(() => {
     app.listen(MONGO_PORT);
     console.log("Successfully Connected.");
+    console.log(chalk.yellow(`Mongoose Listening On PORT: ${MONGO_PORT}`));
   })
   .catch(err => {
     console.log(`Ooops! Error: ${err}`);
@@ -73,4 +74,3 @@ mongoose
 app.listen(NODE_PORT);
 
 console.log(chalk.magenta(`NodeJS Listening On PORT: ${NODE_PORT}`));
-console.log(chalk.yellow(`Mongoose Listening On PORT: ${MONGO_PORT}`));

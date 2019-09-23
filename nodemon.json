@@ -2,6 +2,6 @@
   "env": {
     "MONGO_USER": "GG-Admin",
     "MONGO_PASSWORD": "qwuHnfTHPstlLKFb",
-    "MONGO_DB": "GraphGhost_Users"
+    "MONGO_DB": "GraphGhost"
   }
 }

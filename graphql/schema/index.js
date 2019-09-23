@@ -27,6 +27,7 @@ type RootQuery{
 
 type RootMutation{
     createUser(userInput: UserInput): User
+    createCode(codeInput: CodeInput): Code
 }
 
 schema {

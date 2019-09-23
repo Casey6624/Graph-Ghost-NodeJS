@@ -9,6 +9,7 @@ module.exports = GraphQLResolvers = {
       { _id: "456", email: "test@test.com" }
     ];
   },
+  // Create user
   createUser: async ({ userInput }) => {
     const { email } = userInput;
 
@@ -28,5 +29,20 @@ module.exports = GraphQLResolvers = {
       .catch(err => {
         throw err;
       });
+  },
+  createCode: args => {
+    const { email } = args;
+    const { generatedCode, retrievalCode } = args.codeInput;
+
+    console.log(email);
+    console.log(generatedCode, retrievalCode);
+
+    return [
+      {
+        generatedCode: generatedCode,
+        retrievalCode: retrievalCode,
+        email: email
+      }
+    ];
   }
 };

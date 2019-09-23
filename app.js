@@ -2,11 +2,13 @@
 const chalk = require("chalk");
 const express = require("express");
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 const graphqlHttp = require("express-graphql");
 const app = express();
 app.use(bodyParser.json());
 // Constants
-const PORT = 4500;
+const NODE_PORT = 4500;
+const MONGO_PORT = 4501;
 // Helper Functions
 const { getRawHTML, crawlWebpage } = require("./helpers/scrape_url");
 // GraphQL Resolvers and Schema
@@ -55,6 +57,20 @@ app.post("/crawlme", (req, res, next) => {
   console.log(data);
 });
 
-app.listen(PORT);
+mongoose
+  .connect(
+    `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@graphghost-966hz.azure.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`,
+    { useNewUrlParser: true }
+  )
+  .then(() => {
+    app.listen(MONGO_PORT);
+    console.log("Successfully Connected.");
+  })
+  .catch(err => {
+    console.log(`Ooops! Error: ${err}`);
+  });
 
-console.log(chalk.magenta(`Server Listening On PORT: ${PORT}`));
+app.listen(NODE_PORT);
+
+console.log(chalk.magenta(`NodeJS Listening On PORT: ${NODE_PORT}`));
+console.log(chalk.yellow(`Mongoose Listening On PORT: ${MONGO_PORT}`));

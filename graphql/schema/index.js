@@ -12,7 +12,7 @@ input UserInput {
 }
 
 type RootQuery{
-    users: [User!]!
+    users: [User!]
 }
 
 type RootMutation{

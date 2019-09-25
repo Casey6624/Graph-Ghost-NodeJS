@@ -43,8 +43,8 @@ module.exports = GraphQLResolvers = {
 
     const newCode = {
       _id: "wpppp",
-      generatedCode: "generatedCode",
-      retrievalCode: "retrievalCode",
+      generatedCode: generatedCode,
+      retrievalCode: retrievalCode,
       creator: _id
     };
     return newCode;

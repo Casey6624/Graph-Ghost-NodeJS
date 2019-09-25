@@ -23,12 +23,6 @@ input CodeInput {
     retrievalCode: String
 }
 
-input UserAndCodeInput {
-    email: String!
-    eneratedCode: String
-    retrievalCode: String
-}
-
 type RootQuery{
     users: [User!]
     findCode(email: String!, retrievalCode: String!): [Code!]

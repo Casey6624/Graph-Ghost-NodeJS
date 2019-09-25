@@ -49,5 +49,10 @@ module.exports = GraphQLResolvers = {
     const result = await code.save();
 
     return result;
+  },
+  findCode: ({ email, retrievalCode }) => {
+    console.log(email, retrievalCode);
+
+    const associatedCode = await 
   }
 };

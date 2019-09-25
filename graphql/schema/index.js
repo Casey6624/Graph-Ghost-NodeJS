@@ -36,7 +36,7 @@ type RootQuery{
 
 type RootMutation{
     createUser(userInput: UserInput): User
-    createCode(codeInput: CodeInput, email: String): UserAndCodeInput
+    createCode(codeInput: CodeInput, email: String): Code
 }
 
 schema {

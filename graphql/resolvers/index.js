@@ -30,19 +30,23 @@ module.exports = GraphQLResolvers = {
         throw err;
       });
   },
-  createCode: args => {
+  createCode: async args => {
     const { email } = args;
     const { generatedCode, retrievalCode } = args.codeInput;
+    const existingUser = await User.findOne({ email: email });
+    if (!existingUser) {
+      throw new Error("User does not exist!");
+    }
 
-    console.log(email);
-    console.log(generatedCode, retrievalCode);
+    const { _id, createdAt, updatedAt } = existingUser;
+    console.log(_id);
 
-    return [
-      {
-        generatedCode: generatedCode,
-        retrievalCode: retrievalCode,
-        email: email
-      }
-    ];
+    const newCode = {
+      _id: "wpppp",
+      generatedCode: "generatedCode",
+      retrievalCode: "retrievalCode",
+      creator: _id
+    };
+    return newCode;
   }
 };

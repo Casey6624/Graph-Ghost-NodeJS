@@ -15,7 +15,7 @@ const { getRawHTML, crawlWebpage } = require("./helpers/scrape_url");
 const graphqlResolvers = require("./graphql/resolvers/index");
 const graphqlSchema = require("./graphql/schema/index");
 
-// Combat CORS errors
+// Middleware to combat CORS errors
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS");

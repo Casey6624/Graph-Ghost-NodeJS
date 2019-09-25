@@ -50,9 +50,25 @@ module.exports = GraphQLResolvers = {
 
     return result;
   },
-  findCode: ({ email, retrievalCode }) => {
-    console.log(email, retrievalCode);
+  // Find a code by email/retrevial code
+  findCode: async ({ email, retrievalCode }) => {
+    const associatedCode = await Code.findOne({ retrievalCode: retrievalCode });
 
-    const associatedCode = await 
+    if (!associatedCode) {
+      throw new Error(`Retrieval Code: ${retrievalCode} does not exist :(`);
+    }
+
+    const { creator } = associatedCode;
+    const associatedUser = await User.findOne({ _id: creator });
+
+    const { email: associatedEmail } = associatedUser;
+
+    if (associatedEmail.trim() !== email.trim()) {
+      throw new Error(
+        `Retrieval Code <${retrievalCode}> does not belong to your account.`
+      );
+    }
+
+    return associatedCode;
   }
 };

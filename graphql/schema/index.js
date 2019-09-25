@@ -12,6 +12,8 @@ type Code {
     generatedCode: String!
     retrievalCode: String!
     creator: User!
+    createdAt: String!
+    updatedAt: String!
 }
 
 input UserInput {
@@ -25,7 +27,7 @@ input CodeInput {
 
 type RootQuery{
     users: [User!]
-    findCode(email: String!, retrievalCode: String!): [Code!]
+    findCode(email: String!, retrievalCode: String!): Code!
 }
 
 type RootMutation{

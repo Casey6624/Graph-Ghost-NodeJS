@@ -9,9 +9,9 @@ type User {
 
 type Code {
     _id: ID!
-    generatedCode: String
-    retrievalCode: String
-    creator: User
+    generatedCode: String!
+    retrievalCode: String!
+    creator: User!
 }
 
 input UserInput {
@@ -30,7 +30,7 @@ type RootQuery{
 
 type RootMutation{
     createUser(userInput: UserInput): User
-    createCode(codeInput: CodeInput, email: String): Code
+    createCode(codeInput: CodeInput, email: String): Code!
 }
 
 schema {

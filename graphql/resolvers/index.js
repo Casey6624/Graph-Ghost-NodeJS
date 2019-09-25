@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const User = require("../../models/User");
+const Code = require("../../models/Code");
 
 module.exports = GraphQLResolvers = {
   // Get a list of all users
@@ -9,7 +10,7 @@ module.exports = GraphQLResolvers = {
       { _id: "456", email: "test@test.com" }
     ];
   },
-  // Create user
+  // Create a user
   createUser: async ({ userInput }) => {
     const { email } = userInput;
 
@@ -30,6 +31,7 @@ module.exports = GraphQLResolvers = {
         throw err;
       });
   },
+  // Create a new block of API code
   createCode: async args => {
     const { email } = args;
     const { generatedCode, retrievalCode } = args.codeInput;
@@ -38,15 +40,14 @@ module.exports = GraphQLResolvers = {
       throw new Error("User does not exist!");
     }
 
-    const { _id, createdAt, updatedAt } = existingUser;
-    console.log(_id);
-
-    const newCode = {
-      _id: "wpppp",
+    const code = new Code({
       generatedCode: generatedCode,
       retrievalCode: retrievalCode,
-      creator: _id
-    };
-    return newCode;
+      creator: existingUser
+    });
+
+    const result = await code.save();
+
+    return result;
   }
 };

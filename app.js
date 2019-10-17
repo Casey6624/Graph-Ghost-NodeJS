@@ -41,6 +41,19 @@ async function startApp(url, elements) {
   return crawlWebpage(getRawHTML(url));
 }
 
+app.post("/codeSubmit", (req, res, next) => {
+  console.log(req.body);
+
+  req.body.forEach((entity, index) => {
+    const EntityName = entity[0];
+    const EntityAttributes = entity[1];
+    const { attributeName, dataType } = EntityAttributes[0];
+    console.log("Entity Name: " + EntityName);
+    console.log("Attribute Name: " + attributeName);
+    console.log("Attribute Data Type: " + dataType);
+  });
+});
+
 //startApp();
 
 app.post("/crawlme", (req, res, next) => {

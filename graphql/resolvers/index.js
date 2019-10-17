@@ -54,6 +54,7 @@ module.exports = GraphQLResolvers = {
   findCode: async ({ email, retrievalCode }) => {
     const associatedCode = await Code.findOne({ retrievalCode: retrievalCode });
 
+    console.log(associatedCode);
     if (!associatedCode) {
       throw new Error(`Retrieval Code: ${retrievalCode} does not exist :(`);
     }

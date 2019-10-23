@@ -14,6 +14,8 @@ const { getRawHTML, crawlWebpage } = require("./helpers/scrape_url");
 // GraphQL Resolvers and Schema
 const graphqlResolvers = require("./graphql/resolvers/index");
 const graphqlSchema = require("./graphql/schema/index");
+// Models
+const Code = require("./models/Code");
 
 // Middleware to combat CORS errors
 app.use((req, res, next) => {
@@ -41,17 +43,15 @@ async function startApp(url, elements) {
   return crawlWebpage(getRawHTML(url));
 }
 
-app.post("/codeSubmit", (req, res, next) => {
-  console.log(req.body);
-
-  req.body.forEach((entity, index) => {
-    const EntityName = entity[0];
-    const EntityAttributes = entity[1];
-    const { attributeName, dataType } = EntityAttributes[0];
-    console.log("Entity Name: " + EntityName);
-    console.log("Attribute Name: " + attributeName);
-    console.log("Attribute Data Type: " + dataType);
+app.post("/codeSubmit", async (req, res, next) => {
+  const code = new Code({
+    generatedCode: JSON.stringify(...req.body),
+    retrievalCode: "123",
+    creator: "5d88bdea24f2aa181c649cd1"
   });
+  const result = await code.save();
+  const { _id: codeId } = result;
+  return res.json({ codeId: codeId, creatorId: "5d88bdea24f2aa181c649cd1" });
 });
 
 //startApp();

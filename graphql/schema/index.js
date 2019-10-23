@@ -28,6 +28,7 @@ input CodeInput {
 type RootQuery{
     users: [User!]
     findCode(email: String!, retrievalCode: String!): Code!
+    findCodeRedirect(creatorId: String!, codeId: String!): Code!
 }
 
 type RootMutation{

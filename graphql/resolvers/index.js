@@ -69,7 +69,21 @@ module.exports = GraphQLResolvers = {
         `Retrieval Code <${retrievalCode}> does not belong to your account.`
       );
     }
-
     return associatedCode;
+  },
+  findCodeRedirect: async ({ creatorId, codeId }) => {
+    if (!creatorId) {
+      throw new Error("No Creator ID attached to the request!");
+    }
+    if (!codeId) {
+      throw new Error("No Code ID attached to the request!");
+    }
+
+    const code = await Code.findOne({ _id: codeId, creator: creatorId });
+    if (!code) {
+      return new Error("Could not find that codeId & creatorId match!");
+    }
+
+    return code;
   }
 };

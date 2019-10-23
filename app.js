@@ -51,6 +51,7 @@ app.post("/codeSubmit", async (req, res, next) => {
   });
   const result = await code.save();
   const { _id: codeId } = result;
+  // TODO: Remove hard coded user!! Needs to do a search first to find the UserId via an email address
   return res.json({ codeId: codeId, creatorId: "5d88bdea24f2aa181c649cd1" });
 });
 

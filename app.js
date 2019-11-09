@@ -16,7 +16,6 @@ const graphqlResolvers = require("./graphql/resolvers/index");
 const graphqlSchema = require("./graphql/schema/index");
 // Models
 const Code = require("./models/Code");
-//app.use(cors());
 
 app.use(bodyParser.json());
 

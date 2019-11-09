@@ -16,11 +16,12 @@ const graphqlResolvers = require("./graphql/resolvers/index");
 const graphqlSchema = require("./graphql/schema/index");
 // Models
 const Code = require("./models/Code");
-//app.use(bodyParser.json());
-app.use(cors());
+//app.use(cors());
+
+app.use(bodyParser.json());
 
 // Middleware to combat CORS errors
-/* app.use((req, res, next) => {
+app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
@@ -28,7 +29,7 @@ app.use(cors());
     return res.sendStatus(200);
   }
   next();
-}); */
+});
 
 // use defined schemas and resolvers
 app.use(

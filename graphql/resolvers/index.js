@@ -84,6 +84,8 @@ module.exports = GraphQLResolvers = {
       return new Error("Could not find that codeId & creatorId match!");
     }
 
+    console.log(code)
+
     return code;
   }
 };

@@ -4,7 +4,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const graphqlHttp = require("express-graphql");
-const cors = require("cors");
 const app = express();
 // Constants
 const NODE_PORT = 4500;

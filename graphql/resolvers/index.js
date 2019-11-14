@@ -72,6 +72,7 @@ module.exports = GraphQLResolvers = {
     return associatedCode;
   },
   findCodeRedirect: async ({ creatorId, codeId }) => {
+    console.log("Find code has been triggered");
     if (!creatorId) {
       throw new Error("No Creator ID attached to the request!");
     }
@@ -84,7 +85,7 @@ module.exports = GraphQLResolvers = {
       return new Error("Could not find that codeId & creatorId match!");
     }
 
-    console.log(code)
+    console.log(code);
 
     return code;
   }

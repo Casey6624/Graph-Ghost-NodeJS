@@ -46,7 +46,7 @@ async function startApp(url, elements) {
 
 app.post("/codeSubmit", async (req, res, next) => {
   const code = new Code({
-    generatedCode: JSON.stringify(...req.body),
+    generatedCode: req.body,
     retrievalCode: "123",
     creator: "5d88bdea24f2aa181c649cd1"
   });

@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 const codeSchema = new Schema(
   {
     generatedCode: {
-      type: String,
+      type: Object,
       required: true
     },
     retrievalCode: {

@@ -71,6 +71,7 @@ module.exports = GraphQLResolvers = {
     }
     return associatedCode;
   },
+  // Used only on the redirect of /Create to /Code within create.js of Gatsby frontend
   findCodeRedirect: async ({ creatorId, codeId }) => {
     console.log("Find code has been triggered");
     if (!creatorId) {
@@ -85,7 +86,7 @@ module.exports = GraphQLResolvers = {
       return new Error("Could not find that codeId & creatorId match!");
     }
 
-    console.log(code);
+    code.generatedCode = JSON.stringify(code.generatedCode);
 
     return code;
   }

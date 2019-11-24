@@ -11,8 +11,8 @@ const MONGO_PORT = 4501;
 // Helper Functions
 const { getRawHTML, crawlWebpage } = require("./helpers/scrape_url");
 // GraphQL Resolvers and Schema
-const graphqlResolvers = require("./graphql/resolvers/index");
-const graphqlSchema = require("./graphql/schema/index");
+const graphqlResolvers = require("./graphql/resolvers/resolvers");
+const graphqlSchema = require("./graphql/schema/schema");
 // Models
 const Code = require("./models/Code");
 

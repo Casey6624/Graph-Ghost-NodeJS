@@ -25,9 +25,14 @@ input CodeInput {
     retrievalCode: String
 }
 
+type CodeIDAndUserID {
+    codeID: String
+    userID: String
+}
+
 type RootQuery{
     users: [User!]
-    findCode(email: String!, retrievalCode: String!): Code!
+    findCode(email: String!, retrievalCode: String!): CodeIDAndUserID
     findCodeRedirect(creatorId: String!, codeId: String!): Code!
 }
 

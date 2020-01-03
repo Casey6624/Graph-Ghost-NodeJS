@@ -52,24 +52,32 @@ module.exports = GraphQLResolvers = {
   },
   // Find a code by email/retrevial code
   findCode: async ({ email, retrievalCode }) => {
-    const associatedCode = await Code.findOne({ retrievalCode: retrievalCode });
-
-    console.log(associatedCode);
-    if (!associatedCode) {
+    const code = await Code.findOne({ retrievalCode: retrievalCode });
+    const { creator: userID, _id: codeID } = code;
+    const user = await User.findOne({ email: email });
+    console.log(user._id);
+    console.log(userID);
+    console.log(codeID);
+    return { codeID, userID };
+    /*     return;
+    if (!code) {
       throw new Error(`Retrieval Code: ${retrievalCode} does not exist :(`);
     }
 
-    const { creator } = associatedCode;
-    const associatedUser = await User.findOne({ _id: creator });
+    const { creator } = code;
+    const user = await User.findOne({ _id: creator });
 
-    const { email: associatedEmail } = associatedUser;
+    const { email: associatedEmail } = user;
 
     if (associatedEmail.trim() !== email.trim()) {
       throw new Error(
         `Retrieval Code <${retrievalCode}> does not belong to your account.`
       );
     }
-    return associatedCode;
+
+    code.generatedCode = JSON.stringify(code.generatedCode);
+
+    return code; */
   },
   // Used only on the redirect of /Create to /Code within create.js of Gatsby frontend
   findCodeRedirect: async ({ creatorId, codeId }) => {

@@ -26,8 +26,8 @@ input CodeInput {
 }
 
 type CodeIDAndUserID {
-    codeID: String
-    userID: String
+    codeID: String!
+    userID: String!
 }
 
 type RootQuery{

@@ -59,27 +59,29 @@ module.exports = GraphQLResolvers = {
       );
     }
     const { creator: userID, _id: codeID } = code;
-    const user = await User.findOne({ email: email });
-    if (!user) {
-      throw new Error("We were unable to find an associated user account");
-    }
+    const user = await User.findOne({ email: email })
+      .then(() => {
+        return { codeID, userID };
+      })
+      .catch(err => {
+        throw new Error(
+          "Cannot find that combination! Please double check your retrieval code is correct."
+        );
+      });
     return { codeID, userID };
   },
   // Used only on the redirect of /Create to /Code within create.js of Gatsby frontend
   findCodeRedirect: async ({ creatorId, codeId }) => {
-    console.log("Find code has been triggered");
     if (!creatorId) {
       throw new Error("No Creator ID attached to the request!");
     }
     if (!codeId) {
       throw new Error("No Code ID attached to the request!");
     }
-
     const code = await Code.findOne({ _id: codeId, creator: creatorId });
     if (!code) {
       return new Error("Could not find that codeId & creatorId match!");
     }
-
     code.generatedCode = JSON.stringify(code.generatedCode);
 
     return code;

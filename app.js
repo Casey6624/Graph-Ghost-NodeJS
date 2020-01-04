@@ -13,8 +13,8 @@ const { getRawHTML, crawlWebpage } = require("./helpers/scrape_url");
 // GraphQL Resolvers and Schema
 const graphqlResolvers = require("./graphql/resolvers/resolvers");
 const graphqlSchema = require("./graphql/schema/schema");
-// Models
-const Code = require("./models/Code");
+
+const CodeController = require("./controllers/CodeController");
 
 app.use(bodyParser.json());
 
@@ -39,26 +39,16 @@ app.use(
   })
 );
 
-async function startApp(url, elements) {
+app.use("/code-submit", CodeController.submitCode);
+
+/* async function startApp(url, elements) {
   console.log(chalk.magenta.bgRed.bold("Getting HTML"));
   return crawlWebpage(getRawHTML(url));
-}
+} */
 
-app.post("/codeSubmit", async (req, res, next) => {
-  const code = new Code({
-    generatedCode: req.body,
-    retrievalCode: "123",
-    creator: "5d88bdea24f2aa181c649cd1"
-  });
-  const result = await code.save();
-  const { _id: codeId } = result;
-  // TODO: Remove hard coded user!! Needs to do a search first to find the UserId via an email address
-  return res.json({ codeId: codeId, creatorId: "5d88bdea24f2aa181c649cd1" });
-});
+//app.post("/submit-code", () => Routes.submitCode);
 
-//startApp();
-
-app.post("/crawlme", (req, res, next) => {
+/* app.post("/crawlme", (req, res, next) => {
   const { elements, url } = req.query;
   if (!elements || !url) {
     res.sendStatus(400);
@@ -70,7 +60,7 @@ app.post("/crawlme", (req, res, next) => {
     })
     .catch(err => console.log(err));
   console.log(data);
-});
+}); */
 
 mongoose
   .connect(

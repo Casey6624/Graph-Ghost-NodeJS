@@ -23,9 +23,20 @@ exports.submitCode = async (req, res, next) => {
     userID = usrRes._id;
   }
 
+  function createRetreivalCode(length = 8) {
+    var result = "";
+    var characters = "abcdefghijklmnopqrstuvwxyz0123456789";
+    for (var i = 0; i < length; i++) {
+      result += characters.charAt(
+        Math.floor(Math.random() * characters.length)
+      );
+    }
+    return result;
+  }
+
   const code = new Code({
     generatedCode: data,
-    retrievalCode: "123",
+    retrievalCode: createRetreivalCode(),
     creator: userID
   });
   const codeRes = await code.save();

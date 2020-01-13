@@ -48,19 +48,7 @@ app.use("/code-submit", CodeController.submitCode);
 
 //app.post("/submit-code", () => Routes.submitCode);
 
-/* app.post("/crawlme", (req, res, next) => {
-  const { elements, url } = req.query;
-  if (!elements || !url) {
-    res.sendStatus(400);
-  }
-  const data = startApp(url, elements)
-    .then(data => {
-      console.log(data);
-      return res.send(data);
-    })
-    .catch(err => console.log(err));
-  console.log(data);
-}); */
+app.post("/crawl-me", CodeController.crawlMe);
 
 mongoose
   .connect(

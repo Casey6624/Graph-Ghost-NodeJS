@@ -1,6 +1,7 @@
 // Models
 const Code = require("../models/Code");
 const User = require("../models/User");
+const Crawl = require("../models/Crawl");
 
 exports.submitCode = async (req, res, next) => {
   // TODO: create retrievalCode automagically and create Creator before creating the code
@@ -43,4 +44,14 @@ exports.submitCode = async (req, res, next) => {
   const { _id: codeId } = codeRes;
   // TODO: Remove hard coded user!! Needs to do a search first to find the UserId via an email address
   return res.json({ codeId: codeId, creatorId: userID });
+};
+
+exports.crawlMe = async (req, res, next) => {
+  const { entities } = req.body;
+  console.log(entities);
+  if (!entities) {
+    // Unprocessable Entity
+    res.status(422);
+    res.send("No entities have been posted to the server.");
+  }
 };

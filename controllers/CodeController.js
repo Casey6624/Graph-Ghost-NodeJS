@@ -23,7 +23,7 @@ exports.submitCode = async (req, res, next) => {
     const usrRes = await user.save();
     userID = usrRes._id;
   }
-
+  // Generate an 8 string random lowercase retreival code
   function createRetreivalCode(length = 8) {
     var result = "";
     var characters = "abcdefghijklmnopqrstuvwxyz0123456789";
@@ -54,4 +54,15 @@ exports.crawlMe = async (req, res, next) => {
     res.status(422);
     res.send("No entities have been posted to the server.");
   }
+
+  const crawl = new Crawl({
+    rawAttributes: entities
+  });
+  const crawlRes = await crawl.save();
+  if (!crawlRes) {
+    res.status(500);
+    res.send("Internal Server Error. Please try again later");
+  }
+  res.status(200);
+  res.send(JSON.stringify({ url: crawlRes._id }));
 };

@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const User = require("../../models/User");
 const Code = require("../../models/Code");
+const Crawl = require("../../models/Crawl");
 
 module.exports = GraphQLResolvers = {
   // Get a list of all users
@@ -85,5 +86,15 @@ module.exports = GraphQLResolvers = {
     code.generatedCode = JSON.stringify(code.generatedCode);
 
     return code;
+  },
+  findRawCrawl: async ({ crawlId }) => {
+    if (!crawlId) {
+      throw new Error("New crawlID has been supplied.");
+    }
+    const crawl = await Crawl.findById(crawlId);
+    if (!crawl) {
+      throw new Error("Could not find a crawl record for ID" + crawlId);
+    }
+    return crawl;
   }
 };

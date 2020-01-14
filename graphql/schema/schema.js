@@ -16,6 +16,11 @@ type Code {
     updatedAt: String!
 }
 
+type Crawl {
+    _id: ID!
+    rawAttributes: String!
+}
+
 input UserInput {
     email: String!
 }
@@ -34,6 +39,7 @@ type RootQuery{
     users: [User!]
     findCode(email: String!, retrievalCode: String!): CodeIDAndUserID
     findCodeRedirect(creatorId: String!, codeId: String!): Code!
+    findRawCrawl(crawlId: String!): Crawl!
 }
 
 type RootMutation{

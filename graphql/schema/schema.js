@@ -36,7 +36,6 @@ type CodeIDAndUserID {
 }
 
 type RootQuery{
-    users: [User!]
     findCode(email: String!, retrievalCode: String!): CodeIDAndUserID
     findCodeRedirect(creatorId: String!, codeId: String!): Code!
     findRawCrawl(crawlId: String!): Crawl!

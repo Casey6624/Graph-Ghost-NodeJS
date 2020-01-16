@@ -4,13 +4,6 @@ const Code = require("../../models/Code");
 const Crawl = require("../../models/Crawl");
 
 module.exports = GraphQLResolvers = {
-  // Get a list of all users
-  users: () => {
-    return [
-      { _id: "123", email: "casey@test.com" },
-      { _id: "456", email: "test@test.com" }
-    ];
-  },
   // Create a user
   createUser: async ({ userInput }) => {
     const { email } = userInput;

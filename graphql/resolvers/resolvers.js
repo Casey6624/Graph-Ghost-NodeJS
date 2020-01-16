@@ -85,9 +85,12 @@ module.exports = GraphQLResolvers = {
       throw new Error("New crawlID has been supplied.");
     }
     const crawl = await Crawl.findById(crawlId);
+    console.log(crawl);
     if (!crawl) {
       throw new Error("Could not find a crawl record for ID" + crawlId);
     }
+    // We need to turn rawAttrib into a string so it can be type checked by GraphQL. Currently an object in MongoDB
+    crawl.rawAttributes = JSON.stringify(crawl.rawAttributes);
     return crawl;
   }
 };

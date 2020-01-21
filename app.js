@@ -8,16 +8,13 @@ const app = express();
 // Constants
 const NODE_PORT = 4500;
 const MONGO_PORT = 4501;
-// Helper Functions
-const { getRawHTML, crawlWebpage } = require("./helpers/scrape_url");
 // GraphQL Resolvers and Schema
 const graphqlResolvers = require("./graphql/resolvers/resolvers");
 const graphqlSchema = require("./graphql/schema/schema");
-
+// RESTful controller for actions which aren't GraphQL related.
 const CodeController = require("./controllers/CodeController");
-
+// Middleware to be able to parse the POST body of HTTP requests
 app.use(bodyParser.json());
-
 // Middleware to combat CORS errors
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -28,7 +25,6 @@ app.use((req, res, next) => {
   }
   next();
 });
-
 // use defined schemas and resolvers
 app.use(
   "/graphql",
@@ -38,18 +34,11 @@ app.use(
     graphiql: true
   })
 );
-
+// RESTful endpoint which inserts a created code form to the database
 app.use("/code-submit", CodeController.submitCode);
-
-/* async function startApp(url, elements) {
-  console.log(chalk.magenta.bgRed.bold("Getting HTML"));
-  return crawlWebpage(getRawHTML(url));
-} */
-
-//app.post("/submit-code", () => Routes.submitCode);
-
+// RESTful endpoint which inserts a raw crawlCode to the Crawl database
 app.post("/crawl-me", CodeController.crawlMe);
-
+// MongoDB Atlas connection string passed mongoose which allows for DB connection
 mongoose
   .connect(
     `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@graphghost-966hz.azure.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`,

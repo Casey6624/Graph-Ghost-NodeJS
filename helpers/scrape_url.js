@@ -1,3 +1,5 @@
+// OLD CODE
+// Probably will go unused as xPath with puppeteer looks like the simpliest option
 const axios = require("axios");
 const cheerio = require("cheerio");
 

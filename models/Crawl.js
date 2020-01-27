@@ -7,6 +7,10 @@ const crawlSchema = new Schema(
     rawAttributes: {
       type: Object,
       required: true
+    },
+    url: {
+      type: String,
+      require: true
     }
   },
   { timestamps: true }

@@ -11,6 +11,7 @@ type Code {
     _id: ID!
     generatedCode: String!
     retrievalCode: String!
+    url: String
     creator: User!
     createdAt: String!
     updatedAt: String!

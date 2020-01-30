@@ -4,8 +4,7 @@ const User = require("../models/User");
 const Crawl = require("../models/Crawl");
 
 exports.submitCode = async (req, res, next) => {
-  // TODO: create retrievalCode automagically and create Creator before creating the code
-  const { emailAddress, data } = req.body;
+  const { emailAddress, data, url } = req.body;
 
   let userID;
   // check to see if a user is in the system
@@ -39,7 +38,8 @@ exports.submitCode = async (req, res, next) => {
   const code = new Code({
     generatedCode: data,
     retrievalCode: createRetreivalCode(),
-    creator: userID
+    creator: userID,
+    url: url
   });
   const codeRes = await code.save();
   const { _id: codeId } = codeRes;

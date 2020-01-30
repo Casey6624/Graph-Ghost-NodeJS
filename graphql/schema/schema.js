@@ -20,6 +20,7 @@ type Code {
 type Crawl {
     _id: ID!
     rawAttributes: String!
+    url: String!
 }
 
 input UserInput {

@@ -24,6 +24,7 @@ exports.submitCode = async (req, res, next) => {
     userID = usrRes._id;
   }
   // Generate an 8 string random lowercase retreival code
+  // Got from Stackoverflow, don't trust!
   function createRetreivalCode(length = 8) {
     var result = "";
     var characters = "abcdefghijklmnopqrstuvwxyz0123456789";

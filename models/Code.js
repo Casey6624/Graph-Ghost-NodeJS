@@ -15,6 +15,9 @@ const codeSchema = new Schema(
     creator: {
       type: Schema.Types.ObjectId,
       ref: "User"
+    },
+    url: {
+      type: String
     }
   },
   { timestamps: true }

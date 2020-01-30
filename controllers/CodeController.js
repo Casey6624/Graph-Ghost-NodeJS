@@ -47,8 +47,9 @@ exports.submitCode = async (req, res, next) => {
 };
 
 exports.crawlMe = async (req, res, next) => {
-  const { entities } = req.body;
+  const { entities, url } = req.body;
   console.log(entities);
+  console.log(url);
   if (!entities) {
     // Unprocessable Entity
     res.status(422);
@@ -56,7 +57,8 @@ exports.crawlMe = async (req, res, next) => {
   }
 
   const crawl = new Crawl({
-    rawAttributes: entities
+    rawAttributes: entities,
+    url: url
   });
   const crawlRes = await crawl.save();
   if (!crawlRes) {

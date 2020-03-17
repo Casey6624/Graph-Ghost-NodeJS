@@ -2,6 +2,8 @@
 const Code = require("../models/Code");
 const User = require("../models/User");
 const Crawl = require("../models/Crawl");
+// Mail functionality
+const Mail = require("../mail/index");
 
 exports.submitCode = async (req, res, next) => {
   const { emailAddress, data, url } = req.body;
@@ -35,12 +37,17 @@ exports.submitCode = async (req, res, next) => {
     return result;
   }
 
+  let newRetrievalCode = createRetreivalCode();
+
   const code = new Code({
     generatedCode: data,
-    retrievalCode: createRetreivalCode(),
+    retrievalCode: newRetrievalCode,
     creator: userID,
     url: url
   });
+
+  Mail.sendNow(emailAddress, newRetrievalCode, code._id, userID);
+
   const codeRes = await code.save();
   const { _id: codeId } = codeRes;
   // TODO: Remove hard coded user!! Needs to do a search first to find the UserId via an email address

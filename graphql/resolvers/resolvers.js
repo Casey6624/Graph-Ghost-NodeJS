@@ -1,7 +1,11 @@
+// Libraries
 const mongoose = require("mongoose");
+// Models
 const User = require("../../models/User");
 const Code = require("../../models/Code");
 const Crawl = require("../../models/Crawl");
+// Mail Functionality
+const Mail = require("../../mail/index");
 
 module.exports = GraphQLResolvers = {
   // Create a user
@@ -39,6 +43,8 @@ module.exports = GraphQLResolvers = {
       retrievalCode: retrievalCode,
       creator: existingUser
     });
+
+    Mail.sendNow(email, retrievalCode, code._id, existingUser._id);
 
     const result = await code.save();
 

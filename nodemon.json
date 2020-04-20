@@ -2,7 +2,7 @@
   "env": {
     "MONGO_USER": "GG-Admin",
     "MONGO_PASSWORD": "vkQcxGXhcvsISjQE",
-    "MONGO_DB": "GraphGhost",
+    "MONGO_DB": "testingGG",
     "EMAIL_USR": "support@graphghost.co.uk",
     "EMAIL_PASS": "Ad2amante!",
     "EMAIL_SMTP": "outlook.office365.com"

@@ -28,7 +28,7 @@ module.exports = {
 
         you can also bookmark the link below, for easy retrieval in the future.
 
-        https://graphghost.co.uk//code/?codeId=${codeId}&creatorId=${userId}
+        https://graphghost.co.uk/code/?codeId=${codeId}&creatorId=${userId}
 
         Thanks for using Graph Ghost!
 

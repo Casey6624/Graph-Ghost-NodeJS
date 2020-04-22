@@ -1,7 +1,19 @@
 const axios = require("axios");
 const mongoose = require("mongoose");
-// Test code-submit, generating code from form endpoint
 
+async function removeAllCollections() {
+  const collections = Object.keys(mongoose.connection.collections);
+  for (const collectionName of collections) {
+    const collection = mongoose.connection.collections[collectionName];
+    await collection.deleteMany();
+  }
+}
+
+afterEach(async () => {
+  await removeAllCollections();
+});
+
+// Test code-submit, generating code from form endpoint
 it("Should save user created endpoints to the database", async (done) => {
   const res = await axios.post("http://localhost:4500/code-submit", {
     emailAddress: "Jest@testing.com",
@@ -15,14 +27,13 @@ it("Should save user created endpoints to the database", async (done) => {
         },
         {
           attributeName: "country",
-          dataType: "string",
+          dataType: "String",
           required: true,
         },
       ],
     ],
     url: "www.mountains.org",
   });
-
   done();
 });
 
@@ -55,16 +66,4 @@ it("Should save the crawl data to a database", async (done) => {
   });
 
   done();
-});
-
-async function removeAllCollections() {
-  const collections = Object.keys(mongoose.connection.collections);
-  for (const collectionName of collections) {
-    const collection = mongoose.connection.collections[collectionName];
-    await collection.deleteMany();
-  }
-}
-
-afterEach(async () => {
-  await removeAllCollections();
 });

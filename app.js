@@ -31,7 +31,7 @@ app.use(
   graphqlHttp({
     schema: graphqlSchema,
     rootValue: graphqlResolvers,
-    graphiql: true
+    graphiql: true,
   })
 );
 // RESTful endpoint which inserts a created code form to the database
@@ -49,10 +49,12 @@ mongoose
     console.log("Successfully Connected.");
     console.log(chalk.yellow(`Mongoose Listening On PORT: ${MONGO_PORT}`));
   })
-  .catch(err => {
+  .catch((err) => {
     console.log(`Ooops! Error: ${err}`);
   });
 
-app.listen(NODE_PORT);
+const server = app.listen(NODE_PORT);
 
 console.log(chalk.magenta(`NodeJS Listening On PORT: ${NODE_PORT}`));
+
+exports.server = server;

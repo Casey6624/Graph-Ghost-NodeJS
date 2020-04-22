@@ -19,7 +19,7 @@ exports.submitCode = async (req, res, next) => {
   // create new user if no existing user is found
   if (!existingUser) {
     const user = new User({
-      email: emailAddress
+      email: emailAddress,
     });
     const usrRes = await user.save();
     userID = usrRes._id;
@@ -43,7 +43,7 @@ exports.submitCode = async (req, res, next) => {
     generatedCode: data,
     retrievalCode: newRetrievalCode,
     creator: userID,
-    url: url
+    url: url,
   });
 
   Mail.sendNow(emailAddress, newRetrievalCode, code._id, userID);
@@ -66,7 +66,7 @@ exports.crawlMe = async (req, res, next) => {
 
   const crawl = new Crawl({
     rawAttributes: entities,
-    url: url
+    url: url,
   });
   const crawlRes = await crawl.save();
   if (!crawlRes) {

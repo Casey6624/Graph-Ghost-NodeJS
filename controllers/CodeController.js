@@ -14,7 +14,7 @@ exports.submitCode = async (req, res, next) => {
 
   if (!emailAddress || !data) {
     res.status(400);
-    res.send("Please supply a valid email address and stingified code.");
+    res.send("Please supply a valid email address and stringified code.");
     return;
   }
 
@@ -24,16 +24,13 @@ exports.submitCode = async (req, res, next) => {
     return;
   }
 
-  if (!Helpers.validateUrl(url)) {
-    res.status(400);
-    res.send("URL is invalid");
-    return;
+  if (url) {
+    if (!Helpers.validateUrl(url)) {
+      res.status(400);
+      res.send("URL is invalid");
+      return;
+    }
   }
-  // remove after postman testing
-  res.status(200);
-  res.send("Code has been created");
-
-  return;
 
   let userID;
   // check to see if a user is in the system

@@ -4,9 +4,36 @@ const User = require("../models/User");
 const Crawl = require("../models/Crawl");
 // Mail functionality
 const Mail = require("../mail/index");
+// helpers
+const Helpers = require("../helpers/helpers.js");
 
 exports.submitCode = async (req, res, next) => {
   const { emailAddress, data, url } = req.body;
+
+  console.log(req.body);
+
+  if (!emailAddress || !data) {
+    res.status(400);
+    res.send("Please supply a valid email address and stingified code.");
+    return;
+  }
+
+  if (emailAddress === "" || !Helpers.validateEmail(emailAddress)) {
+    res.status(400);
+    res.send("Email Address is invalid");
+    return;
+  }
+
+  if (!Helpers.validateUrl(url)) {
+    res.status(400);
+    res.send("URL is invalid");
+    return;
+  }
+  // remove after postman testing
+  res.status(200);
+  res.send("Code has been created");
+
+  return;
 
   let userID;
   // check to see if a user is in the system
@@ -19,7 +46,7 @@ exports.submitCode = async (req, res, next) => {
   // create new user if no existing user is found
   if (!existingUser) {
     const user = new User({
-      email: emailAddress
+      email: emailAddress,
     });
     const usrRes = await user.save();
     userID = usrRes._id;
@@ -43,7 +70,7 @@ exports.submitCode = async (req, res, next) => {
     generatedCode: data,
     retrievalCode: newRetrievalCode,
     creator: userID,
-    url: url
+    url: url,
   });
 
   Mail.sendNow(emailAddress, newRetrievalCode, code._id, userID);
@@ -66,7 +93,7 @@ exports.crawlMe = async (req, res, next) => {
 
   const crawl = new Crawl({
     rawAttributes: entities,
-    url: url
+    url: url,
   });
   const crawlRes = await crawl.save();
   if (!crawlRes) {

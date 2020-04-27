@@ -18,19 +18,19 @@ module.exports = GraphQLResolvers = {
     }
 
     const user = new User({
-      email: email
+      email: email,
     });
     return user
       .save()
       .then(() => {
         return user;
       })
-      .catch(err => {
+      .catch((err) => {
         throw err;
       });
   },
   // Create a new block of API code
-  createCode: async args => {
+  createCode: async (args) => {
     const { email } = args;
     const { generatedCode, retrievalCode } = args.codeInput;
     const existingUser = await User.findOne({ email: email });
@@ -41,7 +41,7 @@ module.exports = GraphQLResolvers = {
     const code = new Code({
       generatedCode: generatedCode,
       retrievalCode: retrievalCode,
-      creator: existingUser
+      creator: existingUser,
     });
 
     Mail.sendNow(email, retrievalCode, code._id, existingUser._id);
@@ -52,6 +52,7 @@ module.exports = GraphQLResolvers = {
   },
   // Find a code by email/retrevial code
   findCode: async ({ email, retrievalCode }) => {
+    console.log(email);
     const code = await Code.findOne({ retrievalCode: retrievalCode });
     if (!code) {
       throw new Error(
@@ -63,7 +64,8 @@ module.exports = GraphQLResolvers = {
       .then(() => {
         return { codeID, userID };
       })
-      .catch(err => {
+      .catch((err) => {
+        console.log(err);
         throw new Error(
           "Cannot find that combination! Please double check your retrieval code is correct."
         );
@@ -98,5 +100,5 @@ module.exports = GraphQLResolvers = {
     // We need to turn rawAttrib into a string so it can be type checked by GraphQL. Currently an object in MongoDB
     crawl.rawAttributes = JSON.stringify(crawl.rawAttributes);
     return crawl;
-  }
+  },
 };

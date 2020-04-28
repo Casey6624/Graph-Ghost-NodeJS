@@ -6,17 +6,14 @@ const Code = require("../../models/Code");
 const Crawl = require("../../models/Crawl");
 // Mail Functionality
 const Mail = require("../../mail/index");
-
 module.exports = GraphQLResolvers = {
   // Create a user
   createUser: async ({ userInput }) => {
     const { email } = userInput;
-
     const existingUser = await User.findOne({ email: email });
     if (existingUser) {
       throw new Error("User already exists!");
     }
-
     const user = new User({
       email: email,
     });
@@ -37,17 +34,13 @@ module.exports = GraphQLResolvers = {
     if (!existingUser) {
       throw new Error("User does not exist!");
     }
-
     const code = new Code({
       generatedCode: generatedCode,
       retrievalCode: retrievalCode,
       creator: existingUser,
     });
-
-    Mail.sendNow(email, retrievalCode, code._id, existingUser._id);
-
     const result = await code.save();
-
+    Mail.sendNow(email, retrievalCode, code._id, existingUser._id);
     return result;
   },
   // Find a code by email/retrevial code
@@ -75,27 +68,28 @@ module.exports = GraphQLResolvers = {
   // Used only on the redirect of /Create to /Code within create.js of Gatsby frontend
   findCodeRedirect: async ({ creatorId, codeId }) => {
     if (!creatorId) {
-      throw new Error("No Creator ID attached to the request!");
+      throw new Error("No Creator ID attached to this request.");
     }
     if (!codeId) {
-      throw new Error("No Code ID attached to the request!");
+      throw new Error("No Code ID attached to this request.");
     }
     const code = await Code.findOne({ _id: codeId, creator: creatorId });
     if (!code) {
-      return new Error("Could not find that codeId & creatorId match!");
+      return new Error(
+        "Error: Could not find that codeId & creatorId combination!"
+      );
     }
     code.generatedCode = JSON.stringify(code.generatedCode);
-
     return code;
   },
   findRawCrawl: async ({ crawlId }) => {
     if (!crawlId) {
-      throw new Error("New crawlID has been supplied.");
+      throw new Error("No crawlID has been supplied with this request.");
     }
     const crawl = await Crawl.findById(crawlId);
     console.log(crawl);
     if (!crawl) {
-      throw new Error("Could not find a crawl record for ID" + crawlId);
+      throw new Error("Could not find a crawl record for the ID: " + crawlId);
     }
     // We need to turn rawAttrib into a string so it can be type checked by GraphQL. Currently an object in MongoDB
     crawl.rawAttributes = JSON.stringify(crawl.rawAttributes);

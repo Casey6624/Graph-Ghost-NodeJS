@@ -44,7 +44,7 @@ type RootQuery{
 }
 
 type RootMutation{
-    createUser(userInput: UserInput): User
+    createUser(userInput: UserInput): User!
     createCode(codeInput: CodeInput, email: String): Code!
 }
 
